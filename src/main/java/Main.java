@@ -9,8 +9,6 @@ public class Main {
 		for (int i = dealer.getDeck().length; i >= 0; i--) {
 			dealer.dealOneCard();
 		}
-
-		System.out.println();
 	}
 
 }
