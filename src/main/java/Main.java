@@ -6,7 +6,7 @@ public class Main {
 
 		dealer.shuffle();
 
-		for (int i = dealer.getDeck().size(); i >= 0; i++) {
+		for (int i = dealer.getDeck().length; i >= 0; i--) {
 			dealer.dealOneCard();
 		}
 

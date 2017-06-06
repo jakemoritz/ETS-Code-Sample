@@ -1,9 +1,9 @@
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Dealer {
 
-	private ArrayList<Card> deck;
+	private Card[] deck;
+	int lastCardIndex = 51;
 
 	public Dealer() {
 		this.deck = generateDeck();
@@ -12,23 +12,24 @@ public class Dealer {
 	public void shuffle() {
 		Random random = new Random();
 
-		for (int i = deck.size() - 1; i > 0; i--) {
+		for (int i = deck.length - 1; i > 0; i--) {
 			int index = random.nextInt(i + 1);
 
-			Card card = deck.get(index);
+			Card card = deck[index];
 
-			deck.set(index, deck.get(i));
-			deck.set(i, card);
+			deck[index] = deck[i];
+			deck[i] = card;
 		}
 	}
 
-	private ArrayList<Card> generateDeck() {
-		ArrayList<Card> deck = new ArrayList<>();
+	private Card[] generateDeck() {
+		Card[] deck = new Card[52];
 
+		int count = 0;
 		for (Suit suit : Suit.values()) {
 			for (Value value : Value.values()) {
 				Card card = new Card(suit, value);
-				deck.add(card);
+				deck[count++] = card;
 			}
 		}
 
@@ -36,16 +37,19 @@ public class Dealer {
 	}
 
 	public Card dealOneCard() {
-		if (!deck.isEmpty()) {
-			Card card = deck.remove(deck.size() - 1);
+		if (lastCardIndex >= 0) {
+			Card card = deck[lastCardIndex];
+			deck[lastCardIndex] = null;
 			System.out.println(card);
+
+			lastCardIndex--;
 			return card;
 		}
 
 		return null;
 	}
 
-	public ArrayList<Card> getDeck() {
+	public Card[] getDeck() {
 		return deck;
 	}
 
